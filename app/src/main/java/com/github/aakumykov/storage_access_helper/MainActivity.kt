@@ -8,13 +8,15 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
 
-    private val storageAccessHelper by lazy { StorageAccessHelper.create(this) }
+    private lateinit var storageAccessHelper: StorageAccessHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        findViewById<FloatingActionButton>(R.id.appPropertiesButton).setOnClickListener { openAppProperties() }
+        storageAccessHelper = StorageAccessHelper.create(this)
+
+        findViewById<FloatingActionButton>(R.id.appPropertiesButton).setOnClickListener { storageAccessHelper.openStorageAccessSettings() }
 
         findViewById<Button>(R.id.requestStorageReadAccessButton).setOnClickListener {
             storageAccessHelper.requestReadAccess { findViewById<TextView>(R.id.textView).text = "Доступ на чтение получен" }

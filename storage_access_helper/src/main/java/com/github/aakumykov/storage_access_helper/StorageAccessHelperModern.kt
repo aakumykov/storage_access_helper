@@ -22,24 +22,29 @@ class StorageAccessHelperModern(private val activity: FragmentActivity): Storage
 
     @RequiresApi(Build.VERSION_CODES.R)
     override fun requestStorageAccess(resultCallback: (isGranted: Boolean) -> Unit) {
+        requestFullAccess(resultCallback)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.R)
+    override fun requestReadAccess(resultCallback: (isGranted: Boolean) -> Unit) {
+        this.onResult = resultCallback
+        requestFullAccess(resultCallback)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.R)
+    override fun requestWriteAccess(resultCallback: (isGranted: Boolean) -> Unit) {
+        this.onResult = resultCallback
+        requestFullAccess(resultCallback)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.R)
+    override fun requestFullAccess(resultCallback: (isGranted: Boolean) -> Unit) {
         this.onResult = resultCallback
 
         if (hasStorageAccess())
             invokeOnResult(true)
         else
             activityResultLauncher.launch(Unit)
-    }
-
-    override fun requestReadAccess(resultCallback: (isGranted: Boolean) -> Unit) {
-        TODO("Not yet implemented")
-    }
-
-    override fun requestWriteAccess(resultCallback: (isGranted: Boolean) -> Unit) {
-        TODO("Not yet implemented")
-    }
-
-    override fun requestFullAccess(resultCallback: (isGranted: Boolean) -> Unit) {
-        TODO("Not yet implemented")
     }
 
 
