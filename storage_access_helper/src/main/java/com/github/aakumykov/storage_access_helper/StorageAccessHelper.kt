@@ -6,16 +6,11 @@ import androidx.fragment.app.FragmentActivity
 
 interface StorageAccessHelper {
 
-    @Deprecated("Отдельные функции + requestFullAccess()")
-    fun requestStorageAccess(resultCallback: (isGranted: Boolean) -> Unit)
-
     fun requestReadAccess(resultCallback: (isGranted: Boolean) -> Unit)
     fun requestWriteAccess(resultCallback: (isGranted: Boolean) -> Unit)
     fun requestFullAccess(resultCallback: (isGranted: Boolean) -> Unit)
 
 
-    @Deprecated("hasFullAccess() и отдельные методы")
-    fun hasStorageAccess(): Boolean
     fun hasReadAccess(): Boolean
     fun hasWriteAccess(): Boolean
     fun hasFullAccess(): Boolean

@@ -21,11 +21,6 @@ class StorageAccessHelperModern(private val activity: FragmentActivity): Storage
 
 
     @RequiresApi(Build.VERSION_CODES.R)
-    override fun requestStorageAccess(resultCallback: (isGranted: Boolean) -> Unit) {
-        requestFullAccess(resultCallback)
-    }
-
-    @RequiresApi(Build.VERSION_CODES.R)
     override fun requestReadAccess(resultCallback: (isGranted: Boolean) -> Unit) {
         this.onResult = resultCallback
         requestFullAccess(resultCallback)
@@ -41,7 +36,7 @@ class StorageAccessHelperModern(private val activity: FragmentActivity): Storage
     override fun requestFullAccess(resultCallback: (isGranted: Boolean) -> Unit) {
         this.onResult = resultCallback
 
-        if (hasStorageAccess())
+        if (hasFullAccess())
             invokeOnResult(true)
         else
             activityResultLauncher.launch(Unit)
@@ -49,18 +44,13 @@ class StorageAccessHelperModern(private val activity: FragmentActivity): Storage
 
 
     @RequiresApi(Build.VERSION_CODES.R)
-    override fun hasStorageAccess(): Boolean = hasStorageAccessModern()
-    override fun hasReadAccess(): Boolean {
-        TODO("Not yet implemented")
-    }
+    override fun hasWriteAccess(): Boolean = hasFullAccess()
 
-    override fun hasWriteAccess(): Boolean {
-        TODO("Not yet implemented")
-    }
+    @RequiresApi(Build.VERSION_CODES.R)
+    override fun hasReadAccess(): Boolean = hasFullAccess()
 
-    override fun hasFullAccess(): Boolean {
-        TODO("Not yet implemented")
-    }
+    @RequiresApi(Build.VERSION_CODES.R)
+    override fun hasFullAccess(): Boolean = Environment.isExternalStorageManager()
 
 
     @RequiresApi(Build.VERSION_CODES.R)
@@ -68,9 +58,6 @@ class StorageAccessHelperModern(private val activity: FragmentActivity): Storage
         activity.startActivity(IntentHelper.manageAllFilesIntent(activity))
     }
 
-
-    @RequiresApi(Build.VERSION_CODES.R)
-    private fun hasStorageAccessModern(): Boolean = Environment.isExternalStorageManager()
 
     private fun invokeOnResult(isGranted: Boolean) = onResult?.invoke(isGranted)
 }

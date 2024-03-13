@@ -39,9 +39,6 @@ class StorageAccessHelperLegacy(private val activity: FragmentActivity): Storage
         )
     }
 
-    override fun requestStorageAccess(resultCallback: (isGranted: Boolean) -> Unit) {
-        requestFullAccess(resultCallback)
-    }
 
     override fun requestReadAccess(resultCallback: (isGranted: Boolean) -> Unit) {
         this.resultCallback = resultCallback
@@ -59,7 +56,6 @@ class StorageAccessHelperLegacy(private val activity: FragmentActivity): Storage
     }
 
 
-    override fun hasStorageAccess(): Boolean = isAccessGranted(android.Manifest.permission.READ_EXTERNAL_STORAGE)
     override fun hasReadAccess(): Boolean = isAccessGranted(android.Manifest.permission.READ_EXTERNAL_STORAGE)
     override fun hasWriteAccess(): Boolean = isAccessGranted(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
     override fun hasFullAccess(): Boolean {
