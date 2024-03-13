@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">storage_access_helper</string>
+    <string name="description_open_app_properties">Открыть свойства приложения</string>
+</resources>
