@@ -1,9 +1,9 @@
 package com.github.aakumykov.storage_access_helper
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
@@ -17,13 +17,15 @@ class MainActivity : AppCompatActivity() {
         findViewById<FloatingActionButton>(R.id.appPropertiesButton).setOnClickListener { openAppProperties() }
 
         findViewById<Button>(R.id.requestStorageReadAccessButton).setOnClickListener {
-            storageAccessHelper.requestStorageAccess {
-                onReadAccessGranted()
-            }
+            storageAccessHelper.requestReadAccess { findViewById<TextView>(R.id.textView).text = "Доступ на чтение получен" }
         }
-    }
 
-    private fun onReadAccessGranted() {
-        findViewById<TextView>(R.id.textView).text = "Доступ на чтение получен"
+        findViewById<Button>(R.id.requestStorageWriteAccessButton).setOnClickListener {
+            storageAccessHelper.requestWriteAccess { findViewById<TextView>(R.id.textView).text = "Доступ на запись получен" }
+        }
+
+        findViewById<Button>(R.id.requestStorageFullAccessButton).setOnClickListener {
+            storageAccessHelper.requestFullAccess { findViewById<TextView>(R.id.textView).text = "Полный доступ получен" }
+        }
     }
 }
