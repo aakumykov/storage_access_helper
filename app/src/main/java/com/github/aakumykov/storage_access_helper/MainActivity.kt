@@ -16,23 +16,29 @@ class MainActivity : AppCompatActivity() {
 
         storageAccessHelper = StorageAccessHelper.create(this)
 
-        findViewById<ExtendedFloatingActionButton>(R.id.appPropertiesButton).setOnClickListener { storageAccessHelper.openStorageAccessSettings() }
+        findViewById<ExtendedFloatingActionButton>(R.id.appPropertiesButton).setOnClickListener {
+            storageAccessHelper.openStorageAccessSettings()
+        }
 
         findViewById<Button>(R.id.requestStorageReadAccessButton).setOnClickListener {
-            storageAccessHelper.requestReadAccess { findViewById<TextView>(R.id.textView).text = "Доступ на чтение получен" }
+            storageAccessHelper.requestReadAccess { displayStorageAccessState() }
         }
 
         findViewById<Button>(R.id.requestStorageWriteAccessButton).setOnClickListener {
-            storageAccessHelper.requestWriteAccess { findViewById<TextView>(R.id.textView).text = "Доступ на запись получен" }
+            storageAccessHelper.requestWriteAccess { displayStorageAccessState() }
         }
 
         findViewById<Button>(R.id.requestStorageFullAccessButton).setOnClickListener {
-            storageAccessHelper.requestFullAccess { findViewById<TextView>(R.id.textView).text = "Полный доступ получен" }
+            storageAccessHelper.requestFullAccess { displayStorageAccessState() }
         }
     }
 
     override fun onResume() {
         super.onResume()
+        displayStorageAccessState()
+    }
+
+    private fun displayStorageAccessState() {
         findViewById<TextView>(R.id.textView).setText(when {
             storageAccessHelper.hasFullAccess() -> R.string.full_storage_access
             storageAccessHelper.hasReadAccess() -> R.string.reading_storage_access
