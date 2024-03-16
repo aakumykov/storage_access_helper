@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">storage_access_helper</string>
-    <string name="description_open_app_properties">Открыть свойства приложения</string>
+    <string name="description_open_storage_settings">Открыть настройки хранилища</string>
+    <string name="storage_settings">Настройки хранилища</string>
+    <string name="full_storage_access">Полный доступ к хранилищу</string>
+    <string name="reading_storage_access">Доступ на чтение</string>
+    <string name="writing_storage_access">Доступ на запись</string>
+    <string name="no_storage_access">Нет доступа к хранилищу</string>
 </resources>
