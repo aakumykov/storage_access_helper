@@ -4,18 +4,39 @@ import android.os.Build
 import android.os.Environment
 import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 
-class StorageAccessHelperModern(private val activity: FragmentActivity): StorageAccessHelper {
+class StorageAccessHelperModern private constructor(
+    activity: FragmentActivity? = null,
+    fragment: Fragment? = null
+): StorageAccessHelper {
+
+    constructor(fragmentActivity: FragmentActivity): this(activity = fragmentActivity, fragment = null)
+    constructor(fragment: Fragment): this(activity = null, fragment = fragment)
+
+    private var activity: FragmentActivity? = null
+    private var fragment: Fragment? = null
 
     // TODO: лениво
-    private val activityResultLauncher: ActivityResultLauncher<Unit>
+    private var activityResultLauncher: ActivityResultLauncher<Unit>? = null
     private var onResult: ((isGranted: Boolean) -> Unit)? = null
 
 
     init {
-        activityResultLauncher = activity.registerForActivityResult(ManageAllFilesContract(activity.packageName)) { isGranted ->
-            invokeOnResult(isGranted)
+        if (null != activity) {
+            activityResultLauncher =
+                activity.registerForActivityResult(ManageAllFilesContract(activity.packageName)) { isGranted ->
+                    invokeOnResult(isGranted)
+                }
+        }
+        else if (null != fragment) {
+            fragment.registerForActivityResult(ManageAllFilesContract(fragment.requireActivity().packageName)) { isGranted ->
+                invokeOnResult(isGranted)
+            }
+        }
+        else {
+            throw IllegalStateException("There is no both activity and fragment: you must pass one of its to constructor.")
         }
     }
 
@@ -39,7 +60,7 @@ class StorageAccessHelperModern(private val activity: FragmentActivity): Storage
         if (hasFullAccess())
             invokeOnResult(true)
         else
-            activityResultLauncher.launch(Unit)
+            activityResultLauncher?.launch(Unit)
     }
 
 
@@ -55,9 +76,15 @@ class StorageAccessHelperModern(private val activity: FragmentActivity): Storage
 
     @RequiresApi(Build.VERSION_CODES.R)
     override fun openStorageAccessSettings() {
-        activity.startActivity(IntentHelper.manageAllFilesIntent(activity))
+        activity().also {
+            it.startActivity(IntentHelper.manageAllFilesIntent(it))
+        }
     }
 
+
+    private fun activity(): FragmentActivity {
+        return activity ?: fragment?.requireActivity()!!
+    }
 
     private fun invokeOnResult(isGranted: Boolean) = onResult?.invoke(isGranted)
 }
