@@ -6,12 +6,16 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 
-class StorageAccessHelperModern private constructor(
+class StorageAccessHelperModern(
     activity: FragmentActivity? = null,
     fragment: Fragment? = null
 )
     : StorageAccessHelperBasic(activity, fragment)
 {
+    // TODO: разобраться с этими конструкторами
+    constructor(fragmentActivity: FragmentActivity): this(activity = fragmentActivity, fragment = null)
+    constructor(fragment: Fragment): this(activity = null, fragment = fragment)
+
     @RequiresApi(Build.VERSION_CODES.R)
     override fun requestReadAccess(resultCallback: (isGranted: Boolean) -> Unit) {
         requestFullAccess(resultCallback)

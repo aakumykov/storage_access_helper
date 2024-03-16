@@ -6,13 +6,17 @@ import androidx.fragment.app.FragmentActivity
 import permissions.dispatcher.ktx.PermissionsRequester
 import permissions.dispatcher.ktx.constructPermissionsRequest
 
-// TODO: превратить поля activity и fragment в аргументы
 class StorageAccessHelperLegacy private constructor(
     private val activity: FragmentActivity? = null,
     private val fragment: Fragment? = null
 )
     : StorageAccessHelperBasic(activity, fragment)
 {
+    // TODO: разобраться с этими конструкторами
+    constructor(fragmentActivity: FragmentActivity): this(activity = fragmentActivity, fragment = null)
+    constructor(fragment: Fragment): this(activity = null, fragment = fragment)
+
+
     // TODO: лениво?
     private val readingStoragePermissionsRequester: PermissionsRequester
     private val writingStoragePermissionsRequester: PermissionsRequester

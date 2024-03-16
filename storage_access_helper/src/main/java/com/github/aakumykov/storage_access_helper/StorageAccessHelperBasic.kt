@@ -7,13 +7,9 @@ import androidx.fragment.app.FragmentActivity
 abstract class StorageAccessHelperBasic protected constructor(
     activity: FragmentActivity? = null,
     fragment: Fragment? = null
-): StorageAccessHelper {
-
-
-    constructor(fragmentActivity: FragmentActivity): this(activity = fragmentActivity, fragment = null)
-    constructor(fragment: Fragment): this(activity = null, fragment = fragment)
-
-
+)
+    : StorageAccessHelper
+{
     private var activity: FragmentActivity? = null
     private var fragment: Fragment? = null
 
