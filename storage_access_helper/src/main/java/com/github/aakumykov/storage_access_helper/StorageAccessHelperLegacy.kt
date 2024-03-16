@@ -1,42 +1,78 @@
 package com.github.aakumykov.storage_access_helper
 
 import android.content.pm.PackageManager
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import permissions.dispatcher.ktx.PermissionsRequester
 import permissions.dispatcher.ktx.constructPermissionsRequest
 
-class StorageAccessHelperLegacy(private val activity: FragmentActivity): StorageAccessHelper {
-
-    // TODO: лениво
+// TODO: превратить поля activity и fragment в аргументы
+class StorageAccessHelperLegacy private constructor(
+    private val activity: FragmentActivity? = null,
+    private val fragment: Fragment? = null
+)
+    : StorageAccessHelperBasic(activity, fragment)
+{
+    // TODO: лениво?
     private val readingStoragePermissionsRequester: PermissionsRequester
     private val writingStoragePermissionsRequester: PermissionsRequester
     private val fullStoragePermissionsRequester: PermissionsRequester
 
-    private var resultCallback: ((isGranted: Boolean) -> Unit)? = null // TODO: в интерфейс...
-
 
     init {
-        readingStoragePermissionsRequester = activity.constructPermissionsRequest(
-            android.Manifest.permission.READ_EXTERNAL_STORAGE,
-            requiresPermission = { resultCallback?.invoke(true) },
-            onPermissionDenied = { resultCallback?.invoke(false) },
-            onNeverAskAgain = { resultCallback?.invoke(true) }
-        )
+        if (null == activity && null == fragment)
+            throw IllegalStateException("Both activity and fragment are null.")
 
-        writingStoragePermissionsRequester = activity.constructPermissionsRequest(
-            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            requiresPermission = { resultCallback?.invoke(true) },
-            onPermissionDenied = { resultCallback?.invoke(false) },
-            onNeverAskAgain = { resultCallback?.invoke(true) }
-        )
+        readingStoragePermissionsRequester = constructReadingPermissionRequest()
+        writingStoragePermissionsRequester = constructWritingPermissionRequest()
+        fullStoragePermissionsRequester = constructFullAccessPermissionRequest()
+    }
 
-        fullStoragePermissionsRequester = activity.constructPermissionsRequest(
+    private fun constructFullAccessPermissionRequest(): PermissionsRequester {
+        return activity?.constructPermissionsRequest(
             android.Manifest.permission.READ_EXTERNAL_STORAGE,
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
             requiresPermission = { resultCallback?.invoke(true) },
             onPermissionDenied = { resultCallback?.invoke(false) },
             onNeverAskAgain = { resultCallback?.invoke(true) }
-        )
+        ) ?:
+        fragment?.constructPermissionsRequest(
+            android.Manifest.permission.READ_EXTERNAL_STORAGE,
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            requiresPermission = { resultCallback?.invoke(true) },
+            onPermissionDenied = { resultCallback?.invoke(false) },
+            onNeverAskAgain = { resultCallback?.invoke(true) }
+        )!!
+    }
+
+    private fun constructWritingPermissionRequest(): PermissionsRequester {
+        return activity?.constructPermissionsRequest(
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            requiresPermission = { resultCallback?.invoke(true) },
+            onPermissionDenied = { resultCallback?.invoke(false) },
+            onNeverAskAgain = { resultCallback?.invoke(true) }
+        ) ?:
+        fragment?.constructPermissionsRequest(
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            requiresPermission = { resultCallback?.invoke(true) },
+            onPermissionDenied = { resultCallback?.invoke(false) },
+            onNeverAskAgain = { resultCallback?.invoke(true) }
+        )!!
+    }
+
+    private fun constructReadingPermissionRequest(): PermissionsRequester {
+        return activity?.constructPermissionsRequest(
+            android.Manifest.permission.READ_EXTERNAL_STORAGE,
+            requiresPermission = { resultCallback?.invoke(true) },
+            onPermissionDenied = { resultCallback?.invoke(false) },
+            onNeverAskAgain = { resultCallback?.invoke(true) }
+        ) ?:
+        fragment?.constructPermissionsRequest(
+            android.Manifest.permission.READ_EXTERNAL_STORAGE,
+            requiresPermission = { resultCallback?.invoke(true) },
+            onPermissionDenied = { resultCallback?.invoke(false) },
+            onNeverAskAgain = { resultCallback?.invoke(true) }
+        )!!
     }
 
 
@@ -64,11 +100,24 @@ class StorageAccessHelperLegacy(private val activity: FragmentActivity): Storage
     }
 
     override fun openStorageAccessSettings() {
-        IntentHelper.appSettingsIntent(activity)
+        activity().also { fragmentActivity ->
+            fragmentActivity.startActivity(IntentHelper.appSettingsIntent(fragmentActivity))
+        }
+
+/*        activity?.also {
+            IntentHelper.appSettingsIntent(activity).also { intent ->
+                activity.startActivity(intent)
+            }
+        } ?:
+        fragment?.also {
+            IntentHelper.appSettingsIntent(activity).also { intent ->
+                activity.startActivity(intent)
+            }
+        }*/
     }
 
 
     private fun isAccessGranted(checkedPermission: String): Boolean {
-        return PackageManager.PERMISSION_GRANTED == activity.checkCallingOrSelfPermission(checkedPermission)
+        return PackageManager.PERMISSION_GRANTED == activity().checkCallingOrSelfPermission(checkedPermission)
     }
 }
