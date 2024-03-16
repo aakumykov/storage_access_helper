@@ -22,7 +22,8 @@ abstract class StorageAccessHelperBasic protected constructor(
                 }
         }
         else if (null != fragment) {
-            fragment!!.registerForActivityResult(ManageAllFilesContract(fragment!!.requireActivity().packageName)) { isGranted ->
+            activityResultLauncher =
+                fragment!!.registerForActivityResult(ManageAllFilesContract(fragment!!.requireActivity().packageName)) { isGranted ->
                 invokeOnResult(isGranted)
             }
         }
