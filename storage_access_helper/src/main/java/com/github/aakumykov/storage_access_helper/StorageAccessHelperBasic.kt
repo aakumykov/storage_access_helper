@@ -5,15 +5,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 
 abstract class StorageAccessHelperBasic protected constructor(
-    activity: FragmentActivity? = null,
-    fragment: Fragment? = null
+    private var activity: FragmentActivity? = null,
+    private var fragment: Fragment? = null
 )
     : StorageAccessHelper
 {
-    private var activity: FragmentActivity? = null
-    private var fragment: Fragment? = null
-
-
     protected var activityResultLauncher: ActivityResultLauncher<Unit>? = null
     protected var resultCallback: ((isGranted: Boolean) -> Unit)? = null
 
@@ -21,12 +17,12 @@ abstract class StorageAccessHelperBasic protected constructor(
     init {
         if (null != activity) {
             activityResultLauncher =
-                activity.registerForActivityResult(ManageAllFilesContract(activity.packageName)) { isGranted ->
+                activity!!.registerForActivityResult(ManageAllFilesContract(activity!!.packageName)) { isGranted ->
                     invokeOnResult(isGranted)
                 }
         }
         else if (null != fragment) {
-            fragment.registerForActivityResult(ManageAllFilesContract(fragment.requireActivity().packageName)) { isGranted ->
+            fragment!!.registerForActivityResult(ManageAllFilesContract(fragment!!.requireActivity().packageName)) { isGranted ->
                 invokeOnResult(isGranted)
             }
         }
@@ -42,6 +38,12 @@ abstract class StorageAccessHelperBasic protected constructor(
     protected fun invokeOnResult(isGranted: Boolean) = resultCallback?.invoke(isGranted)
 
     protected fun activity(): FragmentActivity {
-        return activity ?: fragment?.requireActivity()!!
+//        return activity ?: fragment?.requireActivity()!!
+        return if (null != activity)
+            activity!!
+        else if (null != fragment)
+            return fragment?.requireActivity()!!
+        else
+            return null!!
     }
 }
