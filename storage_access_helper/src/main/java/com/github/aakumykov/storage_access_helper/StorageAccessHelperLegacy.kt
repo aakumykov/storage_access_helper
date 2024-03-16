@@ -103,23 +103,6 @@ class StorageAccessHelperLegacy private constructor(
                 && isAccessGranted(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
     }
 
-    override fun openStorageAccessSettings() {
-        activity().also { fragmentActivity ->
-            fragmentActivity.startActivity(IntentHelper.appSettingsIntent(fragmentActivity))
-        }
-
-/*        activity?.also {
-            IntentHelper.appSettingsIntent(activity).also { intent ->
-                activity.startActivity(intent)
-            }
-        } ?:
-        fragment?.also {
-            IntentHelper.appSettingsIntent(activity).also { intent ->
-                activity.startActivity(intent)
-            }
-        }*/
-    }
-
 
     private fun isAccessGranted(checkedPermission: String): Boolean {
         return PackageManager.PERMISSION_GRANTED == activity().checkCallingOrSelfPermission(checkedPermission)

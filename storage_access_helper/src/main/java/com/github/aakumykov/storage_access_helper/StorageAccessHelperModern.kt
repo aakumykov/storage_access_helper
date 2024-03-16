@@ -49,11 +49,4 @@ class StorageAccessHelperModern(
     @RequiresApi(Build.VERSION_CODES.R)
     override fun hasFullAccess(): Boolean = Environment.isExternalStorageManager()
 
-
-    @RequiresApi(Build.VERSION_CODES.R)
-    override fun openStorageAccessSettings() {
-        activity().also {
-            it.startActivity(IntentHelper.manageAllFilesIntent(it))
-        }
-    }
 }

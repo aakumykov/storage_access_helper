@@ -1,5 +1,6 @@
 package com.github.aakumykov.storage_access_helper
 
+import android.app.Activity
 import android.os.Build
 import androidx.annotation.ChecksSdkIntAtLeast
 import androidx.fragment.app.Fragment
@@ -16,10 +17,23 @@ interface StorageAccessHelper {
     fun hasWriteAccess(): Boolean
     fun hasFullAccess(): Boolean
 
-    fun openStorageAccessSettings()
-
 
     companion object {
+
+        fun openStorageAccessSettings(activity: Activity) {
+            activity.startActivity(
+                if (isAndroidROrLater()) IntentHelper.manageAllFilesIntent(activity)
+                else IntentHelper.appSettingsIntent(activity)
+            )
+        }
+
+        fun openStorageAccessSettings(fragment: Fragment) {
+            fragment.startActivity(
+                if (isAndroidROrLater()) IntentHelper.manageAllFilesIntent(fragment.requireContext())
+                else IntentHelper.appSettingsIntent(fragment.requireContext())
+            )
+        }
+
 
         fun create(fragmentActivity: FragmentActivity): StorageAccessHelper {
             return when {
