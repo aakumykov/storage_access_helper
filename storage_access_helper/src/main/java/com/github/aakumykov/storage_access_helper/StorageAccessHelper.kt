@@ -1,8 +1,6 @@
 package com.github.aakumykov.storage_access_helper
 
 import android.app.Activity
-import android.os.Build
-import androidx.annotation.ChecksSdkIntAtLeast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 
@@ -48,9 +46,6 @@ interface StorageAccessHelper {
                 else -> StorageAccessHelperLegacy(fragment)
             }
         }
-
-        @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.R)
-        private fun isAndroidROrLater() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
     }
 
 }

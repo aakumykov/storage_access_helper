@@ -2,40 +2,54 @@ package com.github.aakumykov.storage_access_helper
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.TextView
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import com.github.aakumykov.storage_access_helper.databinding.FragmentStartBinding
 
 class StartingFragment : Fragment(R.layout.fragment_start) {
 
+    private var _binding: FragmentStartBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var storageAccessHelper: StorageAccessHelper
-    private lateinit var rootView: View
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        this.rootView = view
+        _binding = FragmentStartBinding.bind(view)
 
         storageAccessHelper = StorageAccessHelper.create(this)
 
-        view.findViewById<ExtendedFloatingActionButton>(R.id.appPropertiesButton).setOnClickListener {
+        binding.appPropertiesButton.setOnClickListener {
             StorageAccessHelper.openStorageAccessSettings(this)
         }
 
-        view.findViewById<Button>(R.id.requestStorageReadAccessButton).setOnClickListener {
+        binding.requestStorageReadAccessButton.setOnClickListener {
             storageAccessHelper.requestReadAccess { displayStorageAccessState() }
         }
 
-        view.findViewById<Button>(R.id.requestStorageWriteAccessButton).setOnClickListener {
+        binding.shouldShowReadAccessRationale.setOnClickListener {
+            showToast(
+                if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(),
+                android.Manifest.permission.READ_EXTERNAL_STORAGE)) "Обоснование нужно"
+                else "Обоснование не нужно"
+            )
+        }
+
+        binding.requestStorageWriteAccessButton.setOnClickListener {
             storageAccessHelper.requestWriteAccess { displayStorageAccessState() }
         }
 
-        view.findViewById<Button>(R.id.requestStorageFullAccessButton).setOnClickListener {
+        binding.requestStorageFullAccessButton.setOnClickListener {
             storageAccessHelper.requestFullAccess { displayStorageAccessState() }
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
     override fun onResume() {
         super.onResume()
@@ -44,14 +58,25 @@ class StartingFragment : Fragment(R.layout.fragment_start) {
 
 
     private fun displayStorageAccessState() {
-        rootView.findViewById<TextView>(R.id.textView).setText(when {
-            storageAccessHelper.hasFullAccess() -> R.string.full_storage_access
-            storageAccessHelper.hasReadAccess() -> R.string.reading_storage_access
-            storageAccessHelper.hasWriteAccess() -> R.string.writing_storage_access
-            else -> R.string.no_storage_access
-        })
+        val neverAskAgainChecker = StorageAccessNeverAskAgainChecker.create()
+        binding.textView.text = getString(
+            when {
+                neverAskAgainChecker.isNeverAskAgainRead(requireActivity()) -> R.string.never_ask_again_read
+                neverAskAgainChecker.isNeverAskAgainWrite(requireActivity()) -> R.string.never_ask_again_write
+                neverAskAgainChecker.isNeverAskAgainFullAccess(requireActivity()) -> R.string.never_ask_again_full
+
+                storageAccessHelper.hasFullAccess() -> R.string.full_storage_access
+                storageAccessHelper.hasReadAccess() -> R.string.reading_storage_access
+                storageAccessHelper.hasWriteAccess() -> R.string.writing_storage_access
+
+                else -> R.string.no_storage_access
+            }
+        )
     }
 
+    private fun showToast(text: String) {
+        Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
+    }
 
     companion object {
         fun create(): StartingFragment = StartingFragment()
