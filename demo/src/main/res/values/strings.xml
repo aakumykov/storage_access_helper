@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">storage_access_helper_demo</string>
+    <string name="description_open_storage_settings">Открыть настройки хранилища</string>
+    <string name="storage_settings">Настройки хранилища</string>
+    <string name="full_storage_access">Полный доступ к хранилищу</string>
+    <string name="reading_storage_access">Доступ на чтение</string>
+    <string name="writing_storage_access">Доступ на запись</string>
+    <string name="no_storage_access">Нет доступа к хранилищу</string>
+    <string name="never_ask_again_read">Доступ на чтение запрещён навсегда</string>
+    <string name="never_ask_again_write">Доступ на запись запрещён навсегда</string>
+    <string name="never_ask_again_full">Доступ на чтение и запись запрещён навсегда</string>
+</resources>

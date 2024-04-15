@@ -1,11 +1,13 @@
-package com.github.aakumykov.storage_access_helper
+package com.github.aakumykov.storage_access_helper_demo
 
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import com.github.aakumykov.storage_access_helper.databinding.FragmentStartBinding
+import com.github.aakumykov.storage_access_helper.StorageAccessHelper
+import com.github.aakumykov.storage_access_helper.StorageAccessNeverAskAgainChecker
+import com.github.aakumykov.storage_access_helper_demo.databinding.FragmentStartBinding
 
 class StartingFragment : Fragment(R.layout.fragment_start) {
 

@@ -1,4 +1,4 @@
-package com.github.aakumykov.storage_access_helper
+package com.github.aakumykov.storage_access_helper_demo
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

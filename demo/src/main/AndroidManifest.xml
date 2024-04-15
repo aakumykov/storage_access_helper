@@ -17,7 +17,7 @@
         android:theme="@style/Theme.Storage_access_helper"
         tools:targetApi="31">
         <activity
-            android:name="com.github.aakumykov.storage_access_helper_demo.MainActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
