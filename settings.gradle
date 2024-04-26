@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 rootProject.name = "storage_access_helper"
 include ':app'
 include ':storage_access_helper'
+include ':easypermissions'

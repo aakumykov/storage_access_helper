@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rationale_ask">Без запрошенных разрешений приложение может работать неправильно.</string>
+    <string name="title_settings_dialog">Требуется разрешение</string>
+    <string name="rationale_ask_again">Без запрошенных разрешений приложение может работать неправильно.
+        Откройте свойства приложения, и настройте разрешения вручную.</string>
+</resources>
