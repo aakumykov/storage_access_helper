@@ -1,6 +1,7 @@
 package com.github.aakumykov.storage_access_helper
 
 import androidx.activity.result.ActivityResultLauncher
+import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 
@@ -32,7 +33,18 @@ abstract class StorageAccessHelperBasic protected constructor(
         }
     }
 
+    @CallSuper
     override fun requestReadAccess(resultCallback: (isGranted: Boolean) -> Unit) {
+        this.resultCallback = resultCallback
+    }
+
+    @CallSuper
+    override fun requestWriteAccess(resultCallback: (isGranted: Boolean) -> Unit) {
+        this.resultCallback = resultCallback
+    }
+
+    @CallSuper
+    override fun requestFullAccess(resultCallback: (isGranted: Boolean) -> Unit) {
         this.resultCallback = resultCallback
     }
 

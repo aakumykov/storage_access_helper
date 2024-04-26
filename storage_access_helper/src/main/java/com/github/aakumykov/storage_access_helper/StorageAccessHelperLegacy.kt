@@ -81,17 +81,17 @@ class StorageAccessHelperLegacy private constructor(
 
 
     override fun requestReadAccess(resultCallback: (isGranted: Boolean) -> Unit) {
-        this.resultCallback = resultCallback
+        super.requestReadAccess(resultCallback)
         readingStoragePermissionsRequester.launch()
     }
 
     override fun requestWriteAccess(resultCallback: (isGranted: Boolean) -> Unit) {
-        this.resultCallback = resultCallback
+        super.requestWriteAccess(resultCallback)
         writingStoragePermissionsRequester.launch()
     }
 
     override fun requestFullAccess(resultCallback: (isGranted: Boolean) -> Unit) {
-        this.resultCallback = resultCallback
+        super.requestFullAccess(resultCallback)
         fullStoragePermissionsRequester.launch()
     }
 
