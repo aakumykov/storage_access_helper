@@ -1,10 +1,16 @@
 package com.github.aakumykov.storage_access_helper
 
+import android.content.Context
 import android.content.pm.PackageManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import com.github.aakumykov.easypermissions.EasyPermissions
+import com.github.aakumykov.easypermissions.models.PermissionRequest
 import permissions.dispatcher.ktx.PermissionsRequester
 import permissions.dispatcher.ktx.constructPermissionsRequest
+
+private const val READ_PERMISSION = android.Manifest.permission.READ_EXTERNAL_STORAGE
+private const val READ_PERMISSION_CODE = 10
 
 class StorageAccessHelperLegacy private constructor(
     private val activity: FragmentActivity? = null,
@@ -82,7 +88,24 @@ class StorageAccessHelperLegacy private constructor(
 
     override fun requestReadAccess(resultCallback: (isGranted: Boolean) -> Unit) {
         super.requestReadAccess(resultCallback)
-        readingStoragePermissionsRequester.launch()
+
+        val permissionRequest = PermissionRequest.Builder(context())
+            .code(READ_PERMISSION_CODE)
+            .perms(arrayOf(READ_PERMISSION))
+            .build()
+
+        if (null != fragment)
+            EasyPermissions.requestPermissions(fragment, permissionRequest)
+        else if (null != activity)
+            EasyPermissions.requestPermissions(activity, permissionRequest)
+    }
+
+    private fun context(): Context {
+        return when {
+            null != activity -> activity
+            null != fragment -> fragment.requireContext()
+            else -> throw IllegalStateException("Both activity and fragment properties are null.")
+        }
     }
 
     override fun requestWriteAccess(resultCallback: (isGranted: Boolean) -> Unit) {
