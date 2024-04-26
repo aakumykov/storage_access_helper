@@ -18,18 +18,19 @@ class StorageAccessHelperModern(
 
     @RequiresApi(Build.VERSION_CODES.R)
     override fun requestReadAccess(resultCallback: (isGranted: Boolean) -> Unit) {
+        super.requestReadAccess(resultCallback)
         requestFullAccess(resultCallback)
     }
 
     @RequiresApi(Build.VERSION_CODES.R)
     override fun requestWriteAccess(resultCallback: (isGranted: Boolean) -> Unit) {
-        this.resultCallback = resultCallback
+        super.requestWriteAccess(resultCallback)
         requestFullAccess(resultCallback)
     }
 
     @RequiresApi(Build.VERSION_CODES.R)
     override fun requestFullAccess(resultCallback: (isGranted: Boolean) -> Unit) {
-        this.resultCallback = resultCallback
+        super.requestFullAccess(resultCallback)
 
         if (hasFullAccess())
             invokeOnResult(true)
