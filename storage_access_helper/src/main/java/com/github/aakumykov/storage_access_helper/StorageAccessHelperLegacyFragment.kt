@@ -6,16 +6,6 @@ import androidx.core.content.PermissionChecker
 import androidx.core.content.PermissionChecker.checkCallingOrSelfPermission
 import androidx.fragment.app.Fragment
 
-private const val READING_PERMISSION = android.Manifest.permission.READ_EXTERNAL_STORAGE
-private const val WRITING_PERMISSION = android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-private val FULL_PERMISSION = arrayOf(
-    android.Manifest.permission.READ_EXTERNAL_STORAGE,
-    android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-)
-
-
-typealias StorageAccessCallback = (isGranted: Boolean) -> Unit
-
 
 class StorageAccessHelperLegacyFragment(
     private val fragment: Fragment

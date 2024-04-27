@@ -6,6 +6,17 @@ import androidx.annotation.ChecksSdkIntAtLeast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 
+const val READING_PERMISSION = android.Manifest.permission.READ_EXTERNAL_STORAGE
+const val WRITING_PERMISSION = android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+val FULL_PERMISSION = arrayOf(
+    android.Manifest.permission.READ_EXTERNAL_STORAGE,
+    android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+)
+
+
+typealias StorageAccessCallback = (isGranted: Boolean) -> Unit
+
+
 interface StorageAccessHelper {
 
     fun prepareForReadAccess()
