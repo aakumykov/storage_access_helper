@@ -38,6 +38,10 @@ class StorageAccessHelperModern(
             activityResultLauncher?.launch(Unit)
     }
 
+    override fun prepareForReadAccess() {
+        
+    }
+
 
     @RequiresApi(Build.VERSION_CODES.R)
     override fun hasWriteAccess(): Boolean = hasFullAccess()

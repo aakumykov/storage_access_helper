@@ -17,7 +17,9 @@ class StartingFragment : Fragment(R.layout.fragment_start) {
 
         this.rootView = view
 
-        storageAccessHelper = StorageAccessHelper.create(this)
+        storageAccessHelper = StorageAccessHelper.create(this).also {
+            it.prepareForReadAccess()
+        }
 
         view.findViewById<ExtendedFloatingActionButton>(R.id.appPropertiesButton).setOnClickListener {
             StorageAccessHelper.openStorageAccessSettings(this)

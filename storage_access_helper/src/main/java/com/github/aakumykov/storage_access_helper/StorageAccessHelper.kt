@@ -8,6 +8,10 @@ import androidx.fragment.app.FragmentActivity
 
 interface StorageAccessHelper {
 
+    fun prepareForReadAccess()
+    fun prepareForWriteAccess()
+    fun prepareForFullAccess()
+
     fun requestReadAccess(resultCallback: (isGranted: Boolean) -> Unit)
     fun requestWriteAccess(resultCallback: (isGranted: Boolean) -> Unit)
     fun requestFullAccess(resultCallback: (isGranted: Boolean) -> Unit)
@@ -36,16 +40,17 @@ interface StorageAccessHelper {
 
 
         fun create(fragmentActivity: FragmentActivity): StorageAccessHelper {
-            return when {
+            throw RuntimeException()
+            /*return when {
                 isAndroidROrLater() -> StorageAccessHelperModern(fragmentActivity)
-                else -> StorageAccessHelperLegacy(fragmentActivity)
-            }
+                else -> StorageAccessHelperLegacyFragment(fragmentActivity)
+            }*/
         }
 
         fun create(fragment: Fragment): StorageAccessHelper {
             return when {
                 isAndroidROrLater() -> StorageAccessHelperModern(fragment)
-                else -> StorageAccessHelperLegacy(fragment)
+                else -> StorageAccessHelperLegacyFragment(fragment)
             }
         }
 
