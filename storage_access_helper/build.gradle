@@ -8,8 +8,15 @@ plugins {
 project.ext {
     artifactId = 'storage_access_helper'
     groupId = 'com.github.aakumykov'
-    versionCode = 5
-    versionName = "0.0." + versionCode
+
+    majorVersionCode = 1
+    minorVersionCode = 0
+    patchVersionCode = 0
+    suffix = "alpha"
+
+    versionName = majorVersionCode + "." + minorVersionCode + "." + patchVersionCode + "-" + suffix
+
+    versionCode = 6
 }
 
 android {

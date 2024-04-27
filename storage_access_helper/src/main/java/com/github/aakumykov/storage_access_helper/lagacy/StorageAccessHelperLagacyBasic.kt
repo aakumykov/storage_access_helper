@@ -9,7 +9,7 @@ import com.github.aakumykov.storage_access_helper.StorageAccessCallback
 import com.github.aakumykov.storage_access_helper.StorageAccessHelper
 import com.github.aakumykov.storage_access_helper.WRITING_PERMISSION
 
-abstract class StorageAccessHelperBasic2 : StorageAccessHelper {
+abstract class StorageAccessHelperLagacyBasic : StorageAccessHelper {
 
     protected var readingStorageRequestLauncher: ActivityResultLauncher<String>? = null
     protected var writingStorageRequestLauncher: ActivityResultLauncher<String>? = null

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Образец Storage Access Helper</string>
+    <string name="description_open_storage_settings">Открыть настройки хранилища</string>
+    <string name="storage_settings">Настройки хранилища</string>
+    <string name="full_storage_access">Есть полный доступ к хранилищу</string>
+    <string name="reading_storage_access">Есть доступ на чтение</string>
+    <string name="writing_storage_access">Есть доступ на запись</string>
+    <string name="no_storage_access">Нет доступа к хранилищу</string>
+    <string name="request_read_access">Запросить доступ на чтение</string>
+    <string name="request_write_access">Запросить доступ на запись</string>
+    <string name="request_full_access">Запросить полный доступ</string>
+</resources>

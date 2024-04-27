@@ -11,19 +11,19 @@ tools:context=".MainActivity">
     android:id="@+id/requestStorageReadAccessButton"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="Запросить доступ на чтение" />
+    android:text="@string/request_read_access" />
 
 <Button
     android:id="@+id/requestStorageWriteAccessButton"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="Запросить доступ на запись" />
+    android:text="@string/request_write_access" />
 
 <Button
     android:id="@+id/requestStorageFullAccessButton"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="Запросить полный доступ" />
+    android:text="@string/request_full_access" />
 
 <TextView
     android:id="@+id/textView"

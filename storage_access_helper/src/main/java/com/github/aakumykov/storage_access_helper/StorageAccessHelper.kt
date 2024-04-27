@@ -2,11 +2,13 @@ package com.github.aakumykov.storage_access_helper
 
 import android.app.Activity
 import android.os.Build
+import androidx.activity.ComponentActivity
 import androidx.annotation.ChecksSdkIntAtLeast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
+import com.github.aakumykov.storage_access_helper.lagacy.StorageAccessHelperLegacyActivity
 import com.github.aakumykov.storage_access_helper.lagacy.StorageAccessHelperLegacyFragment
-import com.github.aakumykov.storage_access_helper.modern.StorageAccessHelperModern
+import com.github.aakumykov.storage_access_helper.modern.StorageAccessHelperModernActivity
+import com.github.aakumykov.storage_access_helper.modern.StorageAccessHelperModernFragment
 
 const val READING_PERMISSION = android.Manifest.permission.READ_EXTERNAL_STORAGE
 const val WRITING_PERMISSION = android.Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -52,17 +54,16 @@ interface StorageAccessHelper {
         }
 
 
-        fun create(fragmentActivity: FragmentActivity): StorageAccessHelper {
-            throw RuntimeException()
-            /*return when {
-                isAndroidROrLater() -> StorageAccessHelperModern(fragmentActivity)
-                else -> StorageAccessHelperLegacyFragment(fragmentActivity)
-            }*/
+        fun create(activity: ComponentActivity): StorageAccessHelper {
+            return when {
+                isAndroidROrLater() -> StorageAccessHelperModernActivity(activity)
+                else -> StorageAccessHelperLegacyActivity(activity)
+            }
         }
 
         fun create(fragment: Fragment): StorageAccessHelper {
             return when {
-                isAndroidROrLater() -> StorageAccessHelperModern(fragment)
+                isAndroidROrLater() -> StorageAccessHelperModernFragment(fragment)
                 else -> StorageAccessHelperLegacyFragment(fragment)
             }
         }

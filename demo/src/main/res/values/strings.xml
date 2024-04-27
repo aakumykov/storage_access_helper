@@ -1,9 +1,12 @@
 <resources>
     <string name="app_name">Storage Access Helper Demo</string>
-    <string name="description_open_storage_settings">Открыть настройки хранилища</string>
-    <string name="storage_settings">Настройки хранилища</string>
-    <string name="full_storage_access">Полный доступ к хранилищу</string>
-    <string name="reading_storage_access">Доступ на чтение</string>
-    <string name="writing_storage_access">Доступ на запись</string>
-    <string name="no_storage_access">Нет доступа к хранилищу</string>
+    <string name="description_open_storage_settings">Open storage settings</string>
+    <string name="storage_settings">Storage settings</string>
+    <string name="full_storage_access">Has full storage access</string>
+    <string name="reading_storage_access">Has storage reading access</string>
+    <string name="writing_storage_access">Has storage writing access</string>
+    <string name="no_storage_access">Has no storage access</string>
+    <string name="request_read_access">Request reading access</string>
+    <string name="request_write_access">Request writing access</string>
+    <string name="request_full_access">Request full access</string>
 </resources>
