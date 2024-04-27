@@ -14,7 +14,6 @@ private val FULL_PERMISSION = arrayOf(
 )
 
 
-// TODO:
 typealias StorageAccessCallback = (isGranted: Boolean) -> Unit
 
 
@@ -26,9 +25,9 @@ class StorageAccessHelperLegacyFragment(
     private var writingStorageRequestLauncher: ActivityResultLauncher<String>? = null
     private var fullStorageRequestLauncher: ActivityResultLauncher<Array<String>>? = null
 
-    private var readingResultCallback: ((isGranted: Boolean) -> Unit)? = null
-    private var writingResultCallback: ((isGranted: Boolean) -> Unit)? = null
-    private var fullAccessResultCallback: ((isGranted: Boolean) -> Unit)? = null
+    private var readingResultCallback: StorageAccessCallback? = null
+    private var writingResultCallback: StorageAccessCallback? = null
+    private var fullAccessResultCallback: StorageAccessCallback? = null
 
 
     override fun prepareForReadAccess() {
@@ -58,19 +57,19 @@ class StorageAccessHelperLegacyFragment(
     }
 
 
-    override fun requestReadAccess(resultCallback: (isGranted: Boolean) -> Unit) {
+    override fun requestReadAccess(resultCallback: StorageAccessCallback) {
         this.readingResultCallback = resultCallback
         readingStorageRequestLauncher?.launch(READING_PERMISSION)
     }
 
 
-    override fun requestWriteAccess(resultCallback: (isGranted: Boolean) -> Unit) {
+    override fun requestWriteAccess(resultCallback: StorageAccessCallback) {
         this.writingResultCallback = resultCallback
         writingStorageRequestLauncher?.launch(WRITING_PERMISSION)
     }
 
 
-    override fun requestFullAccess(resultCallback: (isGranted: Boolean) -> Unit) {
+    override fun requestFullAccess(resultCallback: StorageAccessCallback) {
         this.fullAccessResultCallback = resultCallback
         fullStorageRequestLauncher?.launch(FULL_PERMISSION)
     }
