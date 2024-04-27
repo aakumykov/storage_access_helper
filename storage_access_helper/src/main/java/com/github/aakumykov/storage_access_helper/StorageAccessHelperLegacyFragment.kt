@@ -13,16 +13,22 @@ private val FULL_PERMISSION = arrayOf(
     android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 )
 
+
+// TODO:
+typealias StorageAccessCallback = (isGranted: Boolean) -> Unit
+
+
 class StorageAccessHelperLegacyFragment(
     private val fragment: Fragment
 ) : StorageAccessHelper
 {
     private var readingStorageRequestLauncher: ActivityResultLauncher<String>? = null
     private var writingStorageRequestLauncher: ActivityResultLauncher<String>? = null
-    private var fullStorageRequestLauncher: ActivityResultLauncher<String>? = null
+    private var fullStorageRequestLauncher: ActivityResultLauncher<Array<String>>? = null
 
     private var readingResultCallback: ((isGranted: Boolean) -> Unit)? = null
     private var writingResultCallback: ((isGranted: Boolean) -> Unit)? = null
+    private var fullAccessResultCallback: ((isGranted: Boolean) -> Unit)? = null
 
 
     override fun prepareForReadAccess() {
@@ -31,16 +37,24 @@ class StorageAccessHelperLegacyFragment(
         ) { isGranted -> readingResultCallback?.invoke(isGranted) }
     }
 
+
     override fun prepareForWriteAccess() {
         writingStorageRequestLauncher = fragment.registerForActivityResult(
             ActivityResultContracts.RequestPermission()
         ) { isGranted -> writingResultCallback?.invoke(isGranted) }
     }
 
+
     override fun prepareForFullAccess() {
-        /*fullStorageRequestLauncher = fragment.registerForActivityResult(
-            ActivityResultContracts.RequestPermission()
-        ) { isGranted -> resultCallback?.invoke(isGranted) }*/
+        fullStorageRequestLauncher = fragment.registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) { results: Map<String,Boolean> ->
+            results[READING_PERMISSION]?.let { isReadingAllowed ->
+                results[WRITING_PERMISSION]?.let { isWritingAllowed ->
+                    fullAccessResultCallback?.invoke(isReadingAllowed && isWritingAllowed)
+                }
+            }
+        }
     }
 
 
@@ -49,30 +63,25 @@ class StorageAccessHelperLegacyFragment(
         readingStorageRequestLauncher?.launch(READING_PERMISSION)
     }
 
+
     override fun requestWriteAccess(resultCallback: (isGranted: Boolean) -> Unit) {
         this.writingResultCallback = resultCallback
         writingStorageRequestLauncher?.launch(WRITING_PERMISSION)
     }
 
+
     override fun requestFullAccess(resultCallback: (isGranted: Boolean) -> Unit) {
-//        this.resultCallback = resultCallback
-//        fullStoragePermissionsRequester?.launch(FULL_PERMISSION)
+        this.fullAccessResultCallback = resultCallback
+        fullStorageRequestLauncher?.launch(FULL_PERMISSION)
     }
 
 
     override fun hasReadAccess(): Boolean = isAccessGranted(READING_PERMISSION)
     override fun hasWriteAccess(): Boolean = isAccessGranted(WRITING_PERMISSION)
-    override fun hasFullAccess(): Boolean {
-        return isAccessGranted(android.Manifest.permission.READ_EXTERNAL_STORAGE)
-                && isAccessGranted(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-    }
+    override fun hasFullAccess(): Boolean = isAccessGranted(READING_PERMISSION) && isAccessGranted(WRITING_PERMISSION)
 
 
     private fun isAccessGranted(checkedPermission: String): Boolean {
         return PermissionChecker.PERMISSION_GRANTED == checkCallingOrSelfPermission(fragment.requireContext(), checkedPermission)
-    }
-
-    companion object {
-        val TAG: String = StorageAccessHelperLegacyFragment::class.java.simpleName
     }
 }

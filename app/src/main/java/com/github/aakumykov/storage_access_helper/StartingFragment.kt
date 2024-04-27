@@ -20,6 +20,7 @@ class StartingFragment : Fragment(R.layout.fragment_start) {
         storageAccessHelper = StorageAccessHelper.create(this).also {
             it.prepareForReadAccess()
             it.prepareForWriteAccess()
+            it.prepareForFullAccess()
         }
 
         view.findViewById<ExtendedFloatingActionButton>(R.id.appPropertiesButton).setOnClickListener {
