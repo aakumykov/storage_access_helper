@@ -20,6 +20,8 @@ abstract class StorageAccessHelperModernBasic : StorageAccessHelper {
     @RequiresApi(Build.VERSION_CODES.R)
     override fun requestFullAccess(resultCallback: (isGranted: Boolean) -> Unit) {
 
+        this.resultCallback = resultCallback
+
         if (hasFullAccess())
             invokeOnResult(true)
         else
