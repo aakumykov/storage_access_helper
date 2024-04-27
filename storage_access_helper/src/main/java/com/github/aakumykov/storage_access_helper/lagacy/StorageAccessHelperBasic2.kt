@@ -1,8 +1,13 @@
-package com.github.aakumykov.storage_access_helper
+package com.github.aakumykov.storage_access_helper.lagacy
 
 import android.content.Context
 import androidx.activity.result.ActivityResultLauncher
 import androidx.core.content.PermissionChecker
+import com.github.aakumykov.storage_access_helper.FULL_PERMISSION
+import com.github.aakumykov.storage_access_helper.READING_PERMISSION
+import com.github.aakumykov.storage_access_helper.StorageAccessCallback
+import com.github.aakumykov.storage_access_helper.StorageAccessHelper
+import com.github.aakumykov.storage_access_helper.WRITING_PERMISSION
 
 abstract class StorageAccessHelperBasic2 : StorageAccessHelper {
 
@@ -38,7 +43,9 @@ abstract class StorageAccessHelperBasic2 : StorageAccessHelper {
 
     override fun hasReadAccess(): Boolean = isAccessGranted(READING_PERMISSION)
     override fun hasWriteAccess(): Boolean = isAccessGranted(WRITING_PERMISSION)
-    override fun hasFullAccess(): Boolean = isAccessGranted(READING_PERMISSION) && isAccessGranted(WRITING_PERMISSION)
+    override fun hasFullAccess(): Boolean = isAccessGranted(READING_PERMISSION) && isAccessGranted(
+        WRITING_PERMISSION
+    )
 
 
     private fun isAccessGranted(checkedPermission: String): Boolean {

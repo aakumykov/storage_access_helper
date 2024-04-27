@@ -1,8 +1,10 @@
-package com.github.aakumykov.storage_access_helper
+package com.github.aakumykov.storage_access_helper.lagacy
 
 import android.content.Context
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import com.github.aakumykov.storage_access_helper.READING_PERMISSION
+import com.github.aakumykov.storage_access_helper.WRITING_PERMISSION
 
 
 class StorageAccessHelperLegacyFragment(

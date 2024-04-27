@@ -1,10 +1,11 @@
-package com.github.aakumykov.storage_access_helper
+package com.github.aakumykov.storage_access_helper.modern
 
 import android.os.Build
 import android.os.Environment
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import com.github.aakumykov.storage_access_helper.StorageAccessHelperBasic
 
 class StorageAccessHelperModern(
     activity: FragmentActivity? = null,

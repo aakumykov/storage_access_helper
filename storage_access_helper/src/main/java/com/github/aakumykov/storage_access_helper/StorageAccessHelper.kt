@@ -5,6 +5,8 @@ import android.os.Build
 import androidx.annotation.ChecksSdkIntAtLeast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import com.github.aakumykov.storage_access_helper.lagacy.StorageAccessHelperLegacyFragment
+import com.github.aakumykov.storage_access_helper.modern.StorageAccessHelperModern
 
 const val READING_PERMISSION = android.Manifest.permission.READ_EXTERNAL_STORAGE
 const val WRITING_PERMISSION = android.Manifest.permission.WRITE_EXTERNAL_STORAGE
