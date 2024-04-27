@@ -21,19 +21,20 @@ class StorageAccessHelperLegacyFragment(
     private var writingStorageRequestLauncher: ActivityResultLauncher<String>? = null
     private var fullStorageRequestLauncher: ActivityResultLauncher<String>? = null
 
-    private var resultCallback: ((isGranted: Boolean) -> Unit)? = null
+    private var readingResultCallback: ((isGranted: Boolean) -> Unit)? = null
+    private var writingResultCallback: ((isGranted: Boolean) -> Unit)? = null
 
 
     override fun prepareForReadAccess() {
         readingStorageRequestLauncher = fragment.registerForActivityResult(
             ActivityResultContracts.RequestPermission()
-        ) { isGranted -> resultCallback?.invoke(isGranted) }
+        ) { isGranted -> readingResultCallback?.invoke(isGranted) }
     }
 
     override fun prepareForWriteAccess() {
         writingStorageRequestLauncher = fragment.registerForActivityResult(
             ActivityResultContracts.RequestPermission()
-        ) { isGranted -> resultCallback?.invoke(isGranted) }
+        ) { isGranted -> writingResultCallback?.invoke(isGranted) }
     }
 
     override fun prepareForFullAccess() {
@@ -44,12 +45,12 @@ class StorageAccessHelperLegacyFragment(
 
 
     override fun requestReadAccess(resultCallback: (isGranted: Boolean) -> Unit) {
-        this.resultCallback = resultCallback
+        this.readingResultCallback = resultCallback
         readingStorageRequestLauncher?.launch(READING_PERMISSION)
     }
 
     override fun requestWriteAccess(resultCallback: (isGranted: Boolean) -> Unit) {
-        this.resultCallback = resultCallback
+        this.writingResultCallback = resultCallback
         writingStorageRequestLauncher?.launch(WRITING_PERMISSION)
     }
 
