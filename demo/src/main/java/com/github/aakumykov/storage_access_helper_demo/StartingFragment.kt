@@ -2,21 +2,18 @@ package com.github.aakumykov.storage_access_helper_demo
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.github.aakumykov.storage_access_helper.StorageAccessHelper
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import com.github.aakumykov.storage_access_helper_demo.databinding.FragmentStartBinding
 
 class StartingFragment : Fragment(R.layout.fragment_start) {
 
+    private var _binding: FragmentStartBinding? = null
+    private val binding get() = _binding!!
     private lateinit var storageAccessHelper: StorageAccessHelper
-    private lateinit var rootView: View
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        this.rootView = view
 
         storageAccessHelper = StorageAccessHelper.create(this).also {
             it.prepareForReadAccess()
@@ -24,19 +21,19 @@ class StartingFragment : Fragment(R.layout.fragment_start) {
             it.prepareForFullAccess()
         }
 
-        view.findViewById<ExtendedFloatingActionButton>(R.id.appPropertiesButton).setOnClickListener {
+        binding.appPropertiesButton.setOnClickListener {
             StorageAccessHelper.openStorageAccessSettings(this)
         }
 
-        view.findViewById<Button>(R.id.requestStorageReadAccessButton).setOnClickListener {
+        binding.requestStorageReadAccessButton.setOnClickListener {
             storageAccessHelper.requestReadAccess { displayStorageAccessState() }
         }
 
-        view.findViewById<Button>(R.id.requestStorageWriteAccessButton).setOnClickListener {
+        binding.requestStorageWriteAccessButton.setOnClickListener {
             storageAccessHelper.requestWriteAccess { displayStorageAccessState() }
         }
 
-        view.findViewById<Button>(R.id.requestStorageFullAccessButton).setOnClickListener {
+        binding.requestStorageFullAccessButton.setOnClickListener {
             storageAccessHelper.requestFullAccess { displayStorageAccessState() }
         }
     }
@@ -49,7 +46,7 @@ class StartingFragment : Fragment(R.layout.fragment_start) {
 
 
     private fun displayStorageAccessState() {
-        rootView.findViewById<TextView>(R.id.textView).setText(when {
+        binding.textView.setText(when {
             storageAccessHelper.hasFullAccess() -> R.string.full_storage_access
             storageAccessHelper.hasReadAccess() -> R.string.reading_storage_access
             storageAccessHelper.hasWriteAccess() -> R.string.writing_storage_access
