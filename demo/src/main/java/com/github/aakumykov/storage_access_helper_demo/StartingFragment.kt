@@ -57,7 +57,7 @@ class StartingFragment : Fragment(R.layout.fragment_start) {
         val dir = File(Environment.getExternalStorageDirectory(), dirName)
         val isExistsText = if (dir.exists()) getString(R.string.exists) else getString(R.string.not_exists)
 
-        if (dir.mkdir())
+        if (dir.mkdirs())
             showToast("Каталог $isExistsText и создан")
         else
             showToast("Каталог $isExistsText и не создан")
