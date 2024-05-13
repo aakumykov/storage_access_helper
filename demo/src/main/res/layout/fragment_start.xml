@@ -25,7 +25,30 @@ tools:context=".MainActivity">
     android:layout_height="wrap_content"
     android:text="@string/request_full_access" />
 
-<TextView
+    <Button
+        android:id="@+id/mkdirButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#42A5F5"
+        android:text="@string/create_dir" />
+
+    <EditText
+        android:id="@+id/dirName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:textAlignment="center"
+        android:hint="@string/hint_dir_name" />
+
+    <CheckBox
+        android:id="@+id/overwriteCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/overwrite_if_exists" />
+
+    <TextView
     android:id="@+id/textView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

@@ -1,10 +1,13 @@
 package com.github.aakumykov.storage_access_helper_demo
 
 import android.os.Bundle
+import android.os.Environment
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.github.aakumykov.storage_access_helper.StorageAccessHelper
 import com.github.aakumykov.storage_access_helper_demo.databinding.FragmentStartBinding
+import java.io.File
 
 class StartingFragment : Fragment(R.layout.fragment_start) {
 
@@ -14,6 +17,8 @@ class StartingFragment : Fragment(R.layout.fragment_start) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        _binding = FragmentStartBinding.bind(view)
 
         storageAccessHelper = StorageAccessHelper.create(this).also {
             it.prepareForReadAccess()
@@ -36,8 +41,34 @@ class StartingFragment : Fragment(R.layout.fragment_start) {
         binding.requestStorageFullAccessButton.setOnClickListener {
             storageAccessHelper.requestFullAccess { displayStorageAccessState() }
         }
+
+        binding.mkdirButton.setOnClickListener {
+            storageAccessHelper.requestWriteAccess {
+                if (dirName.isEmpty())
+                    binding.dirName.error = "Пустое"
+                else
+                    createDir(dirName)
+            }
+        }
     }
 
+    private fun createDir(dirName: String) {
+
+        val dir = File(Environment.getExternalStorageDirectory(), dirName)
+        val isExistsText = if (dir.exists()) getString(R.string.exists) else getString(R.string.not_exists)
+
+        if (dir.mkdir())
+            showToast("Каталог $isExistsText и создан")
+        else
+            showToast("Каталог $isExistsText и не создан")
+    }
+
+    private fun showToast(text: String) {
+        Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
+    }
+
+    private val dirName: String get() = binding.dirName.text.toString()
+    private val overwriteIfExists: Boolean get() = binding.overwriteCheckBox.isChecked
 
     override fun onResume() {
         super.onResume()

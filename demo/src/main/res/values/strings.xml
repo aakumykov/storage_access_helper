@@ -9,4 +9,9 @@
     <string name="request_read_access">Request reading access</string>
     <string name="request_write_access">Request writing access</string>
     <string name="request_full_access">Request full access</string>
+    <string name="hint_dir_name">Dir name</string>
+    <string name="overwrite_if_exists">Overwrite if exists</string>
+    <string name="create_dir">Create dir</string>
+    <string name="not_exists">not exists</string>
+    <string name="exists">exists</string>
 </resources>

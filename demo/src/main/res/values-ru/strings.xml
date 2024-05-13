@@ -10,4 +10,9 @@
     <string name="request_read_access">Запросить доступ на чтение</string>
     <string name="request_write_access">Запросить доступ на запись</string>
     <string name="request_full_access">Запросить полный доступ</string>
+    <string name="hint_dir_name">Имя папки</string>
+    <string name="overwrite_if_exists">Перезаписать, если существует</string>
+    <string name="create_dir">Создать папку</string>
+    <string name="not_exists">не существует</string>
+    <string name="exists">существует</string>
 </resources>
