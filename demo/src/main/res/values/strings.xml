@@ -14,4 +14,5 @@
     <string name="create_dir">Create dir</string>
     <string name="not_exists">not exists</string>
     <string name="exists">exists</string>
+    <string name="cannot_be_empty">Cannot be empty</string>
 </resources>

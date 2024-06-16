@@ -45,7 +45,7 @@ class StartingFragment : Fragment(R.layout.fragment_start) {
         binding.mkdirButton.setOnClickListener {
             storageAccessHelper.requestWriteAccess {
                 if (dirName.isEmpty())
-                    binding.dirName.error = "Пустое"
+                    binding.dirName.error = getString(R.string.cannot_be_empty)
                 else
                     createDir(dirName)
             }

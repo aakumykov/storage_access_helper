@@ -15,4 +15,5 @@
     <string name="create_dir">Создать папку</string>
     <string name="not_exists">не существует</string>
     <string name="exists">существует</string>
+    <string name="cannot_be_empty">Не может быть пустым</string>
 </resources>
