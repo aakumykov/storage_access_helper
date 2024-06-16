@@ -58,9 +58,16 @@ class StartingFragment : Fragment(R.layout.fragment_start) {
         val isExistsText = if (dir.exists()) getString(R.string.exists) else getString(R.string.not_exists)
 
         if (dir.mkdirs())
-            showToast("Каталог $isExistsText и создан")
+            showInfo(getString(R.string.dir_existance_and_was_created, dirName, isExistsText))
         else
-            showToast("Каталог $isExistsText и не создан")
+            showInfo(getString(R.string.dir_existance_and_not_created, dirName, isExistsText))
+    }
+
+    private fun showInfo(msg: String) {
+        binding.infoView.apply {
+            text = msg
+            visibility = View.VISIBLE
+        }
     }
 
     private fun showToast(text: String) {

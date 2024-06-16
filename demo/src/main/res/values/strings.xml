@@ -12,7 +12,10 @@
     <string name="hint_dir_name">Dir name</string>
     <string name="overwrite_if_exists">Overwrite if exists</string>
     <string name="create_dir">Create dir</string>
-    <string name="not_exists">not exists</string>
+    <string name="not_exists">does not exists</string>
     <string name="exists">exists</string>
     <string name="cannot_be_empty">Cannot be empty</string>
+    <string name="dir_existance_and_was_created">Dir «%1$s» %2$s and was created</string>
+    <string name="dir_existance_and_not_created">Dir «%1$s» %2$s and was not created</string>
 </resources>
+<!--«»-->
