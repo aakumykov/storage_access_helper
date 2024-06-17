@@ -6,7 +6,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.github.aakumykov.storage_access_helper.READING_PERMISSION
 import com.github.aakumykov.storage_access_helper.WRITING_PERMISSION
 
-class StorageAccessHelperLegacyActivity(private val activity: ComponentActivity) : StorageAccessHelperLagacyBasic() {
+class StorageAccessHelperLegacyActivity(private val activity: ComponentActivity) : StorageAccessHelperLegacyBasic() {
 
     override fun getContext(): Context = activity
 

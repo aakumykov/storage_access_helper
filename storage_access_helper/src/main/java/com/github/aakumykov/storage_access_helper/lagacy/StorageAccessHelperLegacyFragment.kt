@@ -9,7 +9,7 @@ import com.github.aakumykov.storage_access_helper.WRITING_PERMISSION
 
 class StorageAccessHelperLegacyFragment(
     private val fragment: Fragment
-) : StorageAccessHelperLagacyBasic()
+) : StorageAccessHelperLegacyBasic()
 {
     override fun getContext(): Context = fragment.requireContext()
 
