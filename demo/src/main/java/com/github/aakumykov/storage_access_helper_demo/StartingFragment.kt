@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import com.github.aakumykov.storage_access_helper.StorageAccessHelper
 import com.github.aakumykov.storage_access_helper_demo.databinding.FragmentStartBinding
@@ -75,6 +76,10 @@ class StartingFragment : Fragment(R.layout.fragment_start) {
         }
     }
 
+    private fun showToast(@StringRes stringRes: Int) {
+        showToast(getString(stringRes))
+    }
+
     private fun showToast(text: String) {
         Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
     }
@@ -89,12 +94,15 @@ class StartingFragment : Fragment(R.layout.fragment_start) {
 
 
     private fun displayStorageAccessState() {
-        binding.textView.setText(when {
+        when {
             storageAccessHelper.hasFullAccess() -> R.string.full_storage_access
             storageAccessHelper.hasReadAccess() -> R.string.reading_storage_access
             storageAccessHelper.hasWriteAccess() -> R.string.writing_storage_access
             else -> R.string.no_storage_access
-        })
+        }.also { textRes ->
+            binding.textView.setText(textRes)
+            showToast(textRes)
+        }
     }
 
 
