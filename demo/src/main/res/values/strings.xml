@@ -15,7 +15,8 @@
     <string name="not_exists">does not exists</string>
     <string name="exists">exists</string>
     <string name="cannot_be_empty">Cannot be empty</string>
-    <string name="dir_existance_and_was_created">Dir «%1$s» %2$s and was created</string>
-    <string name="dir_existance_and_not_created">Dir «%1$s» %2$s and was not created</string>
+    <string name="dir_already_exists">Dir already exists:\n%1$s</string>
+    <string name="dir_was_created">Dir was created:\n%1$s</string>
+    <string name="dir_was_not_created">Dir was NOT created:\n%1$s</string>
 </resources>
 <!--«»-->

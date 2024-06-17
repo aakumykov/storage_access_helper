@@ -16,6 +16,7 @@
     <string name="not_exists">не существует</string>
     <string name="exists">существует</string>
     <string name="cannot_be_empty">Не может быть пустым</string>
-    <string name="dir_existance_and_was_created">Каталог «%1$s» %2$s и создан</string>
-    <string name="dir_existance_and_not_created">Каталог «%1$s» %2$s и не создан</string>
+    <string name="dir_already_exists">Каталог уже существует:\n%1$s</string>
+    <string name="dir_was_created">Каталог создан:\n%1$s</string>
+    <string name="dir_was_not_created">Каталог НЕ создан:\n%1$s</string>
 </resources>

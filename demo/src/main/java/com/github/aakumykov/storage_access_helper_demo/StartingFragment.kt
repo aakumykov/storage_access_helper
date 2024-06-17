@@ -56,12 +56,16 @@ class StartingFragment : Fragment(R.layout.fragment_start) {
 
         val dir = File(Environment.getExternalStorageDirectory(), dirName)
         val dirPath = dir.absolutePath
-        val isExistsText = if (dir.exists()) getString(R.string.exists) else getString(R.string.not_exists)
+
+        if (dir.exists()) {
+            showInfo(getString(R.string.dir_already_exists, dirPath))
+            return
+        }
 
         if (dir.mkdirs())
-            showInfo(getString(R.string.dir_existance_and_was_created, dirPath, isExistsText))
+            showInfo(getString(R.string.dir_was_created, dirPath))
         else
-            showInfo(getString(R.string.dir_existance_and_not_created, dirPath, isExistsText))
+            showInfo(getString(R.string.dir_was_not_created, dirPath))
     }
 
     private fun showInfo(msg: String) {
