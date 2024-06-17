@@ -9,9 +9,9 @@ project.ext {
     artifactId = 'storage_access_helper'
     groupId = 'com.github.aakumykov'
 
-    majorVersionCode = 1
+    majorVersionCode = 2
     minorVersionCode = 0
-    patchVersionCode = 1
+    patchVersionCode = 0
     suffix = "alpha"
 
     versionName = majorVersionCode + "." + minorVersionCode + "." + patchVersionCode + "-" + suffix

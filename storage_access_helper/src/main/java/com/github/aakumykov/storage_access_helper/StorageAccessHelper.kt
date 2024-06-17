@@ -72,4 +72,16 @@ interface StorageAccessHelper {
         private fun isAndroidROrLater() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
     }
 
+
+    fun interface ReadingAccessRequestCallback {
+        fun onReadingAccessResult(readingAccessIsGranted: Boolean)
+    }
+
+    fun interface WritingAccessRequestCallback {
+        fun onWritingAccessResult(writingAccessIsGranted: Boolean)
+    }
+
+    fun interface FullAccessRequestCallback {
+        fun onFullAccessResult(fullAccessIsGranted: Boolean)
+    }
 }

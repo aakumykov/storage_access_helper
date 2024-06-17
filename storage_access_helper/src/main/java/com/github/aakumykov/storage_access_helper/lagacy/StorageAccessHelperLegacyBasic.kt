@@ -26,18 +26,21 @@ abstract class StorageAccessHelperLegacyBasic : StorageAccessHelper {
     override fun requestReadAccess(resultCallback: StorageAccessCallback) {
         this.readingResultCallback = resultCallback
         readingStorageRequestLauncher?.launch(READING_PERMISSION)
+            ?: throw IllegalStateException(workNotPreparedMessage("prepareForReadAccess"))
     }
 
 
     override fun requestWriteAccess(resultCallback: StorageAccessCallback) {
         this.writingResultCallback = resultCallback
         writingStorageRequestLauncher?.launch(WRITING_PERMISSION)
+            ?: throw IllegalStateException(workNotPreparedMessage("prepareForWriteAccess"))
     }
 
 
     override fun requestFullAccess(resultCallback: StorageAccessCallback) {
         this.fullAccessResultCallback = resultCallback
         fullStorageRequestLauncher?.launch(FULL_PERMISSION)
+            ?: throw IllegalStateException(workNotPreparedMessage("prepareForFullAccess"))
     }
 
 
@@ -53,5 +56,14 @@ abstract class StorageAccessHelperLegacyBasic : StorageAccessHelper {
             getContext(),
             checkedPermission
         )
+    }
+
+
+    private fun workNotPreparedMessage(methodName: String): String {
+        return "You must call '${methodName}()' method before requesting storage access."
+    }
+
+    companion object {
+        val TAG: String = StorageAccessHelperLegacyBasic::class.java.simpleName
     }
 }

@@ -25,7 +25,12 @@ abstract class StorageAccessHelperModernBasic : StorageAccessHelper {
         if (hasFullAccess())
             invokeOnResult(true)
         else
-            activityResultLauncher?.launch(Unit)
+            showFullStorageAccessDialog()
+    }
+
+    private fun showFullStorageAccessDialog() {
+        activityResultLauncher?.launch(Unit)
+            ?: throw IllegalStateException("You must call one of 'prepare' method before requesting storage access.")
     }
 
 
