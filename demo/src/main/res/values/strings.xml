@@ -18,5 +18,8 @@
     <string name="dir_already_exists">Dir already exists:\n%1$s</string>
     <string name="dir_was_created">Dir was created:\n%1$s</string>
     <string name="dir_was_not_created">Dir was NOT created:\n%1$s</string>
+    <string name="full_access">Full access</string>
+    <string name="writing_access">Writing access</string>
+    <string name="read_access">Reading access</string>
 </resources>
 <!--«»-->

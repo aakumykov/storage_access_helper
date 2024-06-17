@@ -32,15 +32,15 @@ class StartingFragment : Fragment(R.layout.fragment_start) {
         }
 
         binding.requestStorageReadAccessButton.setOnClickListener {
-            storageAccessHelper.requestReadAccess { displayStorageAccessState() }
+            storageAccessHelper.requestReadAccess { displayStorageAccessState(R.string.read_access) }
         }
 
         binding.requestStorageWriteAccessButton.setOnClickListener {
-            storageAccessHelper.requestWriteAccess { displayStorageAccessState() }
+            storageAccessHelper.requestWriteAccess { displayStorageAccessState(R.string.writing_access) }
         }
 
         binding.requestStorageFullAccessButton.setOnClickListener {
-            storageAccessHelper.requestFullAccess { displayStorageAccessState() }
+            storageAccessHelper.requestFullAccess { displayStorageAccessState(R.string.full_access) }
         }
 
         binding.mkdirButton.setOnClickListener {
@@ -76,6 +76,13 @@ class StartingFragment : Fragment(R.layout.fragment_start) {
         }
     }
 
+    private fun showInfo(@StringRes msgRes: Int) {
+        getString(msgRes).also {
+            showInfo(it)
+            showToast(it)
+        }
+    }
+
     private fun showToast(@StringRes stringRes: Int) {
         showToast(getString(stringRes))
     }
@@ -87,21 +94,18 @@ class StartingFragment : Fragment(R.layout.fragment_start) {
     private val dirName: String get() = binding.dirName.text.toString()
     private val overwriteIfExists: Boolean get() = binding.overwriteCheckBox.isChecked
 
-    override fun onResume() {
-        super.onResume()
-        displayStorageAccessState()
-    }
-
-
-    private fun displayStorageAccessState() {
+    private fun displayStorageAccessState(@StringRes msgRes: Int) {
         when {
             storageAccessHelper.hasFullAccess() -> R.string.full_storage_access
             storageAccessHelper.hasReadAccess() -> R.string.reading_storage_access
             storageAccessHelper.hasWriteAccess() -> R.string.writing_storage_access
             else -> R.string.no_storage_access
         }.also { textRes ->
-            binding.textView.setText(textRes)
-            showToast(textRes)
+            val prefix = getString(msgRes)
+            val result = getString(textRes)
+            val msg = "$prefix: $result"
+            showInfo(msg)
+            showToast(msg)
         }
     }
 

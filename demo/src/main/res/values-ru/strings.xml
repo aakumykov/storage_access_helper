@@ -19,4 +19,7 @@
     <string name="dir_already_exists">Каталог уже существует:\n%1$s</string>
     <string name="dir_was_created">Каталог создан:\n%1$s</string>
     <string name="dir_was_not_created">Каталог НЕ создан:\n%1$s</string>
+    <string name="full_access">Полный доступ</string>
+    <string name="writing_access">Доступ на запись</string>
+    <string name="read_access">Доступ на чтение</string>
 </resources>
