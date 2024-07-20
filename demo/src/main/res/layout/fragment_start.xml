@@ -58,6 +58,13 @@ tools:context=".MainActivity">
         android:backgroundTint="#42A5F5"
         android:text="@string/create_dir" />
 
+    <Button
+        android:id="@+id/readDirButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#4CAF50"
+        android:text="@string/read_storage_dir" />
+
     <TextView
     android:id="@+id/textView"
     android:layout_width="match_parent"

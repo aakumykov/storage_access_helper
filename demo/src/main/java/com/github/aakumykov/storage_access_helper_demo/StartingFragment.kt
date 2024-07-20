@@ -1,7 +1,9 @@
 package com.github.aakumykov.storage_access_helper_demo
 
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.StringRes
@@ -49,6 +51,32 @@ class StartingFragment : Fragment(R.layout.fragment_start) {
                     binding.dirName.error = getString(R.string.cannot_be_empty)
                 else
                     createDir(dirName)
+            }
+        }
+
+        binding.readDirButton.setOnClickListener {
+            readStorageDir()
+        }
+    }
+
+    private fun readStorageDir() {
+
+        "/storage".also { readedPath ->
+
+            binding.readDirButton.text = readedPath
+
+            storageAccessHelper.requestFullAccess {
+                File(readedPath).list()
+                    ?.sortedBy { it }
+                    ?.also { list ->
+                    list.joinToString("\n") { it }.also { joinedList ->
+                        Log.d(TAG, joinedList)
+                        showInfo("${Build.MANUFACTURER}, ${Build.MODEL}\n\n${joinedList}")
+                    }
+                }?.forEach { pathInStorage ->
+                    Log.d(TAG, pathInStorage)
+                }
+                    ?: showInfo(getString(R.string.listring_of_dir_returns_empty_result, "/storage"))
             }
         }
     }
@@ -111,6 +139,7 @@ class StartingFragment : Fragment(R.layout.fragment_start) {
 
 
     companion object {
+        val TAG: String = StartingFragment::class.java.simpleName
         fun create(): StartingFragment = StartingFragment()
     }
 }

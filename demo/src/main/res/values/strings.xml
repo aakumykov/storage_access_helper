@@ -21,5 +21,7 @@
     <string name="full_access">Full access</string>
     <string name="writing_access">Writing access</string>
     <string name="read_access">Reading access</string>
+    <string name="read_storage_dir">Прочитать /storage</string>
+    <string name="listring_of_dir_returns_empty_result">Чтение \'%1$s\' вернуло пустой результат</string>
 </resources>
 <!--«»-->
