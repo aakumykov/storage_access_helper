@@ -28,9 +28,14 @@ class ManageAllFilesTest : TestCase() {
                     click()
                 }
             }
+
             ManageAllFilesScreen {
-                switch {
+                /*switch {
                     isClickable()
+                    click()
+                }*/
+                title {
+                    isDisplayed()
                     click()
                 }
             }
