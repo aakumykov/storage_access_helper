@@ -22,7 +22,7 @@ class StorageAccessHelperModernActivity(private val activity: ComponentActivity)
 
     override fun prepareForFullAccess() {
         activityResultLauncher = activity.registerForActivityResult(
-            ManageAllFilesContract(packageName())
+
         ) { isGranted ->
             invokeOnResult(isGranted)
         }

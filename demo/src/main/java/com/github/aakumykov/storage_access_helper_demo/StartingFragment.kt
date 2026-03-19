@@ -1,9 +1,12 @@
 package com.github.aakumykov.storage_access_helper_demo
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Environment
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import com.github.aakumykov.storage_access_helper.StorageAccessHelper
@@ -15,6 +18,17 @@ class StartingFragment : Fragment(R.layout.fragment_start) {
     private var _binding: FragmentStartBinding? = null
     private val binding get() = _binding!!
     private lateinit var storageAccessHelper: StorageAccessHelper
+
+    private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
+
+    override fun onStart() {
+        super.onStart()
+        activityResultLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            storageAccessHelper.parse
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -40,7 +54,11 @@ class StartingFragment : Fragment(R.layout.fragment_start) {
         }
 
         binding.requestStorageFullAccessButton.setOnClickListener {
-            storageAccessHelper.requestFullAccess { displayStorageAccessState(R.string.full_access) }
+            storageAccessHelper.requestFullAccess(
+                requireContext(),
+                activityResultCallback,
+            ) { displayStorageAccessState(R.string.full_access)
+            }
         }
 
         binding.mkdirButton.setOnClickListener {

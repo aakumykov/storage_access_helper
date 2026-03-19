@@ -1,15 +1,17 @@
 package com.github.aakumykov.storage_access_helper.modern
 
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Environment
 import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.RequiresApi
+import com.github.aakumykov.storage_access_helper.ManageAllFilesContract
 import com.github.aakumykov.storage_access_helper.StorageAccessHelper
 
 abstract class StorageAccessHelperModernBasic : StorageAccessHelper {
 
-    protected var activityResultLauncher: ActivityResultLauncher<Unit>? = null
+//    protected var activityResultLauncher: ActivityResultLauncher<Unit>? = null
     protected var resultCallback: ((isGranted: Boolean) -> Unit)? = null
 
 
@@ -18,19 +20,24 @@ abstract class StorageAccessHelperModernBasic : StorageAccessHelper {
 
 
     @RequiresApi(Build.VERSION_CODES.R)
-    override fun requestFullAccess(resultCallback: (isGranted: Boolean) -> Unit) {
+    override fun requestFullAccess(context: Context,
+                                   arl: ActivityResultLauncher<Intent>,
+                                   resultCallback: (isGranted: Boolean) -> Unit) {
 
         this.resultCallback = resultCallback
 
         if (hasFullAccess())
             invokeOnResult(true)
         else
-            showFullStorageAccessDialog()
+            showFullStorageAccessDialog(context, arl)
     }
 
-    private fun showFullStorageAccessDialog() {
-        activityResultLauncher?.launch(Unit)
-            ?: throw IllegalStateException("You must call one of 'prepare' method before requesting storage access.")
+
+    @RequiresApi(Build.VERSION_CODES.R)
+    private fun showFullStorageAccessDialog(context: Context, arl: ActivityResultLauncher<Intent>) {
+        arl.launch(
+            ManageAllFilesContract(packageName()).createIntent(context, Unit)
+        )
     }
 
 

@@ -1,8 +1,11 @@
 package com.github.aakumykov.storage_access_helper
 
 import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.os.Build
 import androidx.activity.ComponentActivity
+import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.ChecksSdkIntAtLeast
 import androidx.fragment.app.Fragment
 import com.github.aakumykov.storage_access_helper.lagacy.StorageAccessHelperLegacyActivity
@@ -28,8 +31,14 @@ interface StorageAccessHelper {
     fun prepareForFullAccess()
 
     fun requestReadAccess(resultCallback: (isGranted: Boolean) -> Unit)
+
     fun requestWriteAccess(resultCallback: (isGranted: Boolean) -> Unit)
-    fun requestFullAccess(resultCallback: (isGranted: Boolean) -> Unit)
+
+    fun requestFullAccess(
+        context: Context,
+        arl: ActivityResultLauncher<Intent>,
+        resultCallback: (isGranted: Boolean) -> Unit
+    )
 
 
     fun hasReadAccess(): Boolean

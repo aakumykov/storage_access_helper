@@ -1,6 +1,8 @@
 package com.github.aakumykov.storage_access_helper.modern
 
 import android.content.Context
+import android.content.Intent
+import androidx.activity.result.ActivityResultLauncher
 import androidx.fragment.app.Fragment
 import com.github.aakumykov.storage_access_helper.ManageAllFilesContract
 
@@ -20,7 +22,7 @@ class StorageAccessHelperModernFragment (private val fragment: Fragment)
         prepareForFullAccess()
     }
 
-    override fun prepareForFullAccess() {
+    override fun prepareForFullAccess(arl: ActivityResultLauncher<Intent>) {
         activityResultLauncher = fragment.registerForActivityResult(
             ManageAllFilesContract(packageName())) { isGranted ->
                 invokeOnResult(isGranted)
