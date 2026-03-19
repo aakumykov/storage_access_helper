@@ -10,18 +10,18 @@ project.ext {
     groupId = 'com.github.aakumykov'
 
     majorVersionCode = 2
-    minorVersionCode = 0
-    patchVersionCode = 1
+    minorVersionCode = 1
+    patchVersionCode = 0
     suffix = "alpha"
 
-    versionCode = 7
+    versionCode = 8
 
     versionName = majorVersionCode + "." + minorVersionCode + "." + patchVersionCode + "-" + suffix
 }
 
 android {
     namespace groupId + '.' + artifactId
-    compileSdk 34
+    compileSdk 36
 
     defaultConfig {
         minSdk 21
@@ -52,8 +52,8 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.13.0'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.core:core-ktx:1.18.0'
+    implementation 'androidx.appcompat:appcompat:1.7.1'
 
 //    testImplementation 'junit:junit:4.13.2'
 //    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
@@ -61,8 +61,8 @@ dependencies {
 
     api "com.github.permissions-dispatcher:ktx:1.1.4"
 
-    implementation 'com.google.dagger:dagger:2.48.1'
-    kapt 'com.google.dagger:dagger-compiler:2.48.1'
+    implementation 'com.google.dagger:dagger:2.59.2'
+    kapt 'com.google.dagger:dagger-compiler:2.59.2'
 }
 
 
