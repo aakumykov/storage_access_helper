@@ -10,11 +10,11 @@ project.ext {
     groupId = 'com.github.aakumykov'
 
     majorVersionCode = 2
-    minorVersionCode = 1
+    minorVersionCode = 2
     patchVersionCode = 0
     suffix = "alpha"
 
-    versionCode = 8
+    versionCode = 9
 
     versionName = majorVersionCode + "." + minorVersionCode + "." + patchVersionCode + "-" + suffix
 }

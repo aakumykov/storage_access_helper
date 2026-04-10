@@ -1,13 +1,18 @@
 package com.github.aakumykov.storage_access_helper.lagacy
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.provider.Settings
 import androidx.activity.result.ActivityResultLauncher
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.content.PermissionChecker
 import com.github.aakumykov.storage_access_helper.FULL_PERMISSION
 import com.github.aakumykov.storage_access_helper.READING_PERMISSION
 import com.github.aakumykov.storage_access_helper.StorageAccessCallback
 import com.github.aakumykov.storage_access_helper.StorageAccessHelper
 import com.github.aakumykov.storage_access_helper.WRITING_PERMISSION
+import androidx.core.net.toUri
 
 abstract class StorageAccessHelperLegacyBasic : StorageAccessHelper {
 
@@ -50,6 +55,13 @@ abstract class StorageAccessHelperLegacyBasic : StorageAccessHelper {
         WRITING_PERMISSION
     )
 
+    override fun openStorageAccessSettingsDialog() {
+        val uri = "package:${getContext().packageName}".toUri()
+        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, uri)
+        if (intent.resolveActivity(getContext().packageManager) != null) {
+            getContext().startActivity(intent)
+        }
+    }
 
     private fun isAccessGranted(checkedPermission: String): Boolean {
         return PermissionChecker.PERMISSION_GRANTED == PermissionChecker.checkCallingOrSelfPermission(

@@ -28,6 +28,10 @@ abstract class StorageAccessHelperModernBasic : StorageAccessHelper {
             showFullStorageAccessDialog()
     }
 
+    override fun openStorageAccessSettingsDialog() {
+        showFullStorageAccessDialog()
+    }
+
     private fun showFullStorageAccessDialog() {
         activityResultLauncher?.launch(Unit)
             ?: throw IllegalStateException("You must call one of 'prepare' method before requesting storage access.")
