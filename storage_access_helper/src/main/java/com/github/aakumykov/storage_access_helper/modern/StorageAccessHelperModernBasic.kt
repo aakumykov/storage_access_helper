@@ -28,7 +28,7 @@ abstract class StorageAccessHelperModernBasic : StorageAccessHelper {
             showFullStorageAccessDialog()
     }
 
-    override fun openStorageAccessSettingsDialog() {
+    override fun showStorageAccessSettingsDialog() {
         showFullStorageAccessDialog()
     }
 

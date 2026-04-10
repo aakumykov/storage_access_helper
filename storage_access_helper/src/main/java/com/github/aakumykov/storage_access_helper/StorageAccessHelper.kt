@@ -36,7 +36,7 @@ interface StorageAccessHelper {
     fun hasWriteAccess(): Boolean
     fun hasFullAccess(): Boolean
 
-    fun openStorageAccessSettingsDialog()
+    fun showStorageAccessSettingsDialog()
 
     companion object {
 

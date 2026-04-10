@@ -55,7 +55,7 @@ abstract class StorageAccessHelperLegacyBasic : StorageAccessHelper {
         WRITING_PERMISSION
     )
 
-    override fun openStorageAccessSettingsDialog() {
+    override fun showStorageAccessSettingsDialog() {
         val uri = "package:${getContext().packageName}".toUri()
         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, uri)
         if (intent.resolveActivity(getContext().packageManager) != null) {
